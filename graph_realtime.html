@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+　　 <title>グラフ</title>
+</head>
+  <body>
+　　　　  <h1>グラフ</h1>
+    <canvas id="myChart"></canvas>
+　　　　　　　　<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+
+<script type="text/javascript" src="moment.js"></script>
+<script type="text/javascript" src="Chart.js"></script>
+<script type="text/javascript" src="chartjs-plugin-streaming.js"></script>
+
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    datasets: [{
+      label: 'Dataset 1',
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      lineTension: 0,
+      borderDash: [8, 4]
+    }, {
+      label: 'Dataset 2',
+      borderColor: 'rgb(54, 162, 235)',
+      backgroundColor: 'rgba(54, 162, 235, 0.5)'
+    }]
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        type: 'realtime'
+        realtime: {
+            delay: 2000
+          onRefresh: function(chart) {
+            chart.data.datasets.forEach(function(dataset) {
+              dataset.data.push({
+                x: Date.now(),
+                y: Math.random()
+              });
+            });
+          }
+        }
+      }]
+    }
+  }
+});
+</script>
+</body>
+</html>
